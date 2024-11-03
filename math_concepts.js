@@ -333,20 +333,26 @@
 			return modes.join(",");
 		}
 		standardDeviation(args) {
+			if (args.A.toString().trim() === "") return 0;
 			const data = args.A.toString().split(",").map(Scratch.Cast.toNumber);
+			if (data === 1) return 0;
 			const mean = this.mean({ A: args.A });
 			const squaredDiffs = data.map(x => Math.pow(x - mean, 2));
 			const avgSquaredDiff = this.mean({ A: squaredDiffs.join(",") });
 			return Math.sqrt(avgSquaredDiff);
 		}
 		variance(args) {
+			if (args.A.toString().trim() === "") return 0;
 			const data = args.A.toString().split(",").map(Scratch.Cast.toNumber);
+			if (data === 1) return 0;
 			const mean = this.mean({ A: args.A });
 			const squaredDiffs = data.map(x => Math.pow(x - mean, 2));
 			return this.mean({ A: squaredDiffs.join(",") });
 		}
 		skewness(args) {
+			if (args.A.toString().trim() === "") return NaN;
 			const data = args.A.toString().split(",").map(Scratch.Cast.toNumber);
+			if (data === 1) return NaN;
 			const mean = this.mean({ A: args.A });
 			const n = data.length;
 			const m3 = data.reduce((acc, x) => acc + Math.pow(x - mean, 3), 0) / n;
@@ -354,7 +360,9 @@
 			return (n * m3) / Math.pow(stdDev, 3);
 		}
 		kurtosis(args) {
+			if (args.A.toString().trim() === "") return NaN;
 			const data = args.A.toString().split(",").map(Scratch.Cast.toNumber);
+			if (data === 1) return NaN;
 			const mean = this.mean({ A: args.A });
 			const n = data.length;
 			const m4 = data.reduce((acc, x) => acc + Math.pow(x - mean, 4), 0) / n;
