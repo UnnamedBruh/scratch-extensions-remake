@@ -109,6 +109,27 @@
 						"text": "γ"
 					},
 					{
+						"opcode": "khinchin",
+						"blockType": "reporter",
+						"text": "k"
+					},
+					{
+						"opcode": "catalan",
+						"blockType": "reporter",
+						"text": "g"
+					},
+					{
+						"opcode": "feigenbaum1",
+						"blockType": "reporter",
+						"text": "δ"
+					},
+					{
+						"opcode": "feigenbaum2",
+						"blockType": "reporter",
+						"text": "α"
+					},
+					
+					{
 						"opcode": "",
 						"blockType": "label",
 						"text": "Data Concepts"
@@ -180,6 +201,18 @@
 		}
 		eMascheroni() {
 			return 0.5772156649015329;
+		}
+		khinchin() {
+			return 2.6854520010653062;
+		}
+		catalan() {
+			return 0.915965594177219;
+		}
+		feigenbaum1() {
+			return 4.66920160910299;
+		}
+		feigenbaum2() {
+			return 2.5029078750958926;
 		}
 		infinity() {
 			return Infinity;
