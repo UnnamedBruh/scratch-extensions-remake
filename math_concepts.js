@@ -150,6 +150,21 @@
 					{
 						"opcode": "",
 						"blockType": "label",
+						"text": "Custom Constants"
+					},
+					{
+						"opcode": "maxFloat",
+						"blockType": "reporter",
+						"text": "M"
+					},
+					{
+						"opcode": "preciseLimit",
+						"blockType": "reporter",
+						"text": "PL"
+					},
+					{
+						"opcode": "",
+						"blockType": "label",
 						"text": "Data Concepts"
 					},
 					{
@@ -280,6 +295,12 @@
 		}
 		feigenbaum2() {
 			return 2.5029078750958926;
+		}
+		maxFloat() {
+			return 1.7976931348623157;
+		}
+		preciseLimit() {
+			return 18.997896403852554;
 		}
 		infinity() {
 			return Infinity;
