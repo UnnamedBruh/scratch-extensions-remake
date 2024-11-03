@@ -54,6 +54,25 @@
 						}
 					},
 					{
+						"opcode": "interpolate",
+						"blockType": "reporter",
+						"text": "interpolate [A] - [B] from [C]",
+						"arguments": {
+							"A": {
+								"type": "number",
+								"defaultValue": "2"
+							},
+							"B": {
+								"type": "number",
+								"defaultValue": "10"
+							},
+							"C": {
+								"type": "number",
+								"defaultValue": "0.5"
+							}
+						}
+					},
+					{
 						"opcode": "",
 						"blockType": "label",
 						"text": "Basic Constants"
@@ -186,6 +205,10 @@
 		}
 		exponents(args) {
 			return Math.pow(Scratch.Cast.toNumber(args.A), Scratch.Cast.toNumber(args.B));
+		}
+		interpolate(args) {
+			args.A = Scratch.Cast.toNumber(args.A);
+			return args.A + (Scratch.Cast.toNumber(args.B) - args.A) * Scratch.Cast.toNumber(args.C);
 		}
 		pi() {
 			return Math.PI;
