@@ -1,4 +1,3 @@
-
 // Name: Mathematical Concepts
 // Author: Unnamedbruh
 // GitHub: https://github.com/UnnamedBruh
@@ -221,9 +220,13 @@
 			return data.length % 2 === 1 ? data[result] : data[result - 1] + (data[result] - data[result - 1]) / 2;
 		}
 		mode(args) {
+			if (args.A === "") return 0;
 			const data = args.A.toString().split(",").map(Scratch.Cast.toNumber);
+			if (data.length === 1) return Scratch.Cast.toNumber(data[0]);
 			const frequency = {};
-			data.forEach(num => frequency[num] = (frequency[num] || 0) + 1);
+			for (const num of data) {
+				frequency[num] = (frequency[num] || 0) + 1;
+			}
 			const maxFreq = Math.max(...Object.values(frequency));
 			const modes = Object.keys(frequency).filter(num => frequency[num] === maxFreq);
 			return modes.join(",");
