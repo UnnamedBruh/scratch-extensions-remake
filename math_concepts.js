@@ -246,11 +246,11 @@
 			if (args.A === "") return 0;
 			let data = args.A.toString().split(",");
 			if (data.length === 1) return Scratch.Cast.toNumber(data[0]);
-			let result = Math.floor(data.length / 2);
+			let result = Math.round(data.length / 2);
 			data = data.sort((a, b) => a - b);
 			data[result - 1] = Scratch.Cast.toNumber(data[result - 1]);
 			data[result] = Scratch.Cast.toNumber(data[result]);
-			return data.length % 2 === 1 ? data[result] : data[result - 1] + (data[result] - data[result - 1]) / 2;
+			return data.length % 2 === 1 ? data[result] : data[result] + (data[result + 1] - data[result]) / 2;
 		}
 		mode(args) {
 			if (args.A === "") return 0;
