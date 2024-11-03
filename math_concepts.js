@@ -222,7 +222,7 @@
 		mode(args) {
 			if (args.A === "") return 0;
 			const data = args.A.toString().split(",").map(Scratch.Cast.toNumber);
-			if (data.length === 1) return Scratch.Cast.toNumber(data[0]);
+			if (data.length === 1) return data[0];
 			const frequency = {};
 			for (const num of data) {
 				frequency[num] = (frequency[num] || 0) + 1;
