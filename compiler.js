@@ -22,8 +22,8 @@
 			}
 		},
 		"blocks": {
-			"operators_equals": function(args) {
-				return args.OPERAND1 + " === " + args.OPERAND2;
+			"operators_equals": function(args, codes) {
+				return (args.OPERAND1 || codes.OPERAND1) + " === " + (args.OPERAND2 || codes.OPERAND2);
 			}
 		}
 	}
