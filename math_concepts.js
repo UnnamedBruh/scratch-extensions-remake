@@ -196,6 +196,51 @@
 								"defaultValue": "8,7,2,1,12,1,4,3"
 							}
 						}
+					},
+					'---',
+					{
+						"opcode": "standardDeviation",
+						"blockType": "reporter",
+						"text": "standard deviation of [A]",
+						"arguments": {
+							"A": {
+								"type": "string",
+								"defaultValue": "8,7,2,1,12"
+							}
+						}
+					},
+					{
+						"opcode": "variance",
+						"blockType": "reporter",
+						"text": "variance of [A]",
+						"arguments": {
+							"A": {
+								"type": "string",
+								"defaultValue": "8,7,2,1,12"
+							}
+						}
+					},
+					{
+						"opcode": "skewness",
+						"blockType": "reporter",
+						"text": "skewness of [A]",
+						"arguments": {
+							"A": {
+								"type": "string",
+								"defaultValue": "8,7,2,1,12"
+							}
+						}
+					},
+					{
+						"opcode": "kurtosis",
+						"blockType": "reporter",
+						"text": "kurtosis of [A]",
+						"arguments": {
+							"A": {
+								"type": "string",
+								"defaultValue": "8,7,2,1,12"
+							}
+						}
 					}
 				]
 			}
@@ -286,6 +331,35 @@
 			const maxFreq = Math.max(...Object.values(frequency));
 			const modes = Object.keys(frequency).filter(num => frequency[num] === maxFreq);
 			return modes.join(",");
+		}
+		standardDeviation(args) {
+			const data = args.A.toString().split(",").map(Scratch.Cast.toNumber);
+			const mean = this.mean({ A: args.A });
+			const squaredDiffs = data.map(x => Math.pow(x - mean, 2));
+			const avgSquaredDiff = this.mean({ A: squaredDiffs.join(",") });
+			return Math.sqrt(avgSquaredDiff);
+		}
+		variance(args) {
+			const data = args.A.toString().split(",").map(Scratch.Cast.toNumber);
+			const mean = this.mean({ A: args.A });
+			const squaredDiffs = data.map(x => Math.pow(x - mean, 2));
+			return this.mean({ A: squaredDiffs.join(",") });
+		}
+		skewness(args) {
+			const data = args.A.toString().split(",").map(Scratch.Cast.toNumber);
+			const mean = this.mean({ A: args.A });
+			const n = data.length;
+			const m3 = data.reduce((acc, x) => acc + Math.pow(x - mean, 3), 0) / n;
+			const stdDev = this.standardDeviation({ A: args.A });
+			return (n * m3) / Math.pow(stdDev, 3);
+		}
+		kurtosis(args) {
+			const data = args.A.toString().split(",").map(Scratch.Cast.toNumber);
+			const mean = this.mean({ A: args.A });
+			const n = data.length;
+			const m4 = data.reduce((acc, x) => acc + Math.pow(x - mean, 4), 0) / n;
+			const stdDev = this.standardDeviation({ A: args.A });
+			return (n * m4) / Math.pow(stdDev, 4) - 3;
 		}
 	}
 	Scratch.extensions.register(new Extension());
