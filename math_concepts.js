@@ -244,7 +244,7 @@
 			return NaN;
 		}
 		range(args) {
-			if (args.A === "") return 0;
+			if (args.A.toString().trim() === "") return 0;
 			const data = args.A.toString().split(",");
 			if (data.length === 1) return 0;
 			let min = Infinity, max = -Infinity;
@@ -256,7 +256,7 @@
 			return max - min;
 		}
 		mean(args) {
-			if (args.A === "") return NaN;
+			if (args.A.toString().trim() === "") return NaN;
 			const data = args.A.toString().split(",");
 			if (data.length === 1) return Scratch.Cast.toNumber(data[0]);
 			let sum = 0;
@@ -266,17 +266,17 @@
 			return sum / data.length;
 		}
 		median(args) {
-			if (args.A === "") return 0;
+			if (args.A.toString().trim() === "") return 0;
 			let data = args.A.toString().split(",");
 			if (data.length === 1) return Scratch.Cast.toNumber(data[0]);
-			let result = Math.round(data.length / 2);
-			data = data.sort((a, b) => a - b);
+			let result = Math.floor(data.length / 2);
+			data = data.sort((a, b) => +a - +b);
 			data[result - 1] = Scratch.Cast.toNumber(data[result - 1]);
 			data[result] = Scratch.Cast.toNumber(data[result]);
-			return data.length % 2 === 1 ? data[result] : data[result] + (data[result + 1] - data[result]) / 2;
+			return (data.length % 2) === 1 ? data[result] : (data[result - 1] + data[result]) / 2;
 		}
 		mode(args) {
-			if (args.A === "") return 0;
+			if (args.A.toString().trim() === "") return 0;
 			const data = args.A.toString().split(",").map(Scratch.Cast.toNumber);
 			if (data.length === 1) return data[0];
 			const frequency = {};
