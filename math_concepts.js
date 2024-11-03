@@ -1,3 +1,4 @@
+
 // Name: Mathematical Concepts
 // Author: Unnamedbruh
 // GitHub: https://github.com/UnnamedBruh
@@ -64,6 +65,11 @@
 						"text": "∞"
 					},
 					{
+						"opcode": "nan",
+						"blockType": "reporter",
+						"text": "NaN"
+					},
+					{
 						"opcode": "",
 						"blockType": "label",
 						"text": "Irrational Constants"
@@ -106,8 +112,52 @@
 					{
 						"opcode": "",
 						"blockType": "label",
-						"text": "Other Concepts"
+						"text": "Data Concepts"
 					},
+					{
+						"opcode": "range",
+						"blockType": "reporter",
+						"text": "range of [A]",
+						"arguments": {
+							"A": {
+								"type": "string",
+								"defaultValue": "8,7,2,1,12"
+							}
+						}
+					},
+					{
+						"opcode": "mean",
+						"blockType": "reporter",
+						"text": "mean of [A]",
+						"arguments": {
+							"A": {
+								"type": "string",
+								"defaultValue": "8,7,2,1,12"
+							}
+						}
+					},
+					{
+						"opcode": "median",
+						"blockType": "reporter",
+						"text": "median of [A]",
+						"arguments": {
+							"A": {
+								"type": "string",
+								"defaultValue": "8,7,2,1,12"
+							}
+						}
+					},
+					{
+						"opcode": "mode",
+						"blockType": "reporter",
+						"text": "mode of [A]",
+						"arguments": {
+							"A": {
+								"type": "string",
+								"defaultValue": "8,7,2,1,12"
+							}
+						}
+					}
 				]
 			}
 		}
@@ -132,7 +182,69 @@
 		eMascheroni() {
 			return 0.5772156649015329;
 		}
-		
+		infinity() {
+			return Infinity;
+		}
+		nan() {
+			return NaN;
+		}
+		range(args) {
+			if (args.A === "") return 0;
+			const data = args.A.toString().split(",");
+			if (data.length === 1) return 0;
+			let min = Infinity, max = -Infinity;
+			for (let i = 0; i < data.length; i++) {
+				data[i] = Scratch.Cast.toNumber(data[i]);
+				if (data[i] > max) max = data[i];
+				if (data[i] < min) min = data[i];
+			}
+			return max - min;
+		}
+		mean(args) {
+			if (args.A === "") return NaN;
+			const data = args.A.toString().split(",");
+			if (data.length === 1) return Scratch.Cast.toNumber(data[0]);
+			let sum = 0;
+			for (let i = 0; i < data.length; i++) {
+				sum += Scratch.Cast.toNumber(data[i]);
+			}
+			return sum / data.length;
+		}
+		median(args) {
+			if (args.A === "") return 0;
+			const data = args.A.toString().split(",");
+			if (data.length === 1) return Scratch.Cast.toNumber(data[0]);
+			let result = Math.floor(data.length / 2);
+			data = data.sort((a, b) => a - b);
+			data[result] = Scratch.Cast.toNumber(data[result]);
+			data[result + 1] = Scratch.Cast.toNumber(data[result + 1]);
+			return data.length % 2 === 1 ? data[result] : data[result] + (data[result + 1] - data[result]) / 2;
+		}
+		mode(args) {
+			if (args.A === "") return 0;
+			const data = args.A.toString().split(",");
+			if (data.length === 1) return Scratch.Cast.toNumber(data[0]);
+			let chart = {}, temp;
+			for (let i = 0; i < chart.length; i++) {
+				data[i] = Scratch.Cast.toNumber(data[i]);
+				temp = data[i].toString();
+				if (chart[temp]) {
+					chart[temp]++;
+				} else {
+					chart[temp] = 1;
+				}
+			}
+			const results = Object.keys(chart);
+			temp = 0;
+			let conclusions = [];
+			for (const key of results) {
+				if (temp <= chart[key]) {
+					conclusions.push(temp);
+					temp = chart[key];
+				}
+			}
+			return conclusions.join(",");
+		}
 	}
 	Scratch.extensions.register(new Extension());
 })(Scratch);
