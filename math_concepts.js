@@ -221,29 +221,12 @@
 			return data.length % 2 === 1 ? data[result] : data[result - 1] + (data[result] - data[result - 1]) / 2;
 		}
 		mode(args) {
-			if (args.A === "") return 0;
-			const data = args.A.toString().split(",");
-			if (data.length === 1) return Scratch.Cast.toNumber(data[0]);
-			let chart = {}, temp;
-			for (let i = 0; i < data.length; i++) {
-				data[i] = Scratch.Cast.toNumber(data[i]);
-				temp = data[i].toString();
-				if (chart.hasOwnProperty(temp)) {
-					chart[temp]++;
-				} else {
-					chart[temp] = 1;
-				}
-			}
-			const results = Object.keys(chart);
-			temp = 0;
-			let conclusions = [];
-			for (const key of results) {
-				if (temp <= chart[key]) {
-					conclusions.push(temp);
-					temp = Number(key);
-				}
-			}
-			return conclusions.join(",");
+			const data = args.A.toString().split(",").map(Scratch.Cast.toNumber);
+			const frequency = {};
+			data.forEach(num => frequency[num] = (frequency[num] || 0) + 1);
+			const maxFreq = Math.max(...Object.values(frequency));
+			const modes = Object.keys(frequency).filter(num => frequency[num] === maxFreq);
+			return modes.join(",");
 		}
 	}
 	Scratch.extensions.register(new Extension());
