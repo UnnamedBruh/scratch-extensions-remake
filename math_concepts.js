@@ -225,7 +225,7 @@
 			const data = args.A.toString().split(",");
 			if (data.length === 1) return Scratch.Cast.toNumber(data[0]);
 			let chart = {}, temp;
-			for (let i = 0; i < chart.length; i++) {
+			for (let i = 0; i < data.length; i++) {
 				data[i] = Scratch.Cast.toNumber(data[i]);
 				temp = data[i].toString();
 				if (chart[temp]) {
