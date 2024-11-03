@@ -212,13 +212,13 @@
 		}
 		median(args) {
 			if (args.A === "") return 0;
-			const data = args.A.toString().split(",");
+			let data = args.A.toString().split(",");
 			if (data.length === 1) return Scratch.Cast.toNumber(data[0]);
 			let result = Math.floor(data.length / 2);
 			data = data.sort((a, b) => a - b);
+			data[result - 1] = Scratch.Cast.toNumber(data[result - 1]);
 			data[result] = Scratch.Cast.toNumber(data[result]);
-			data[result + 1] = Scratch.Cast.toNumber(data[result + 1]);
-			return data.length % 2 === 1 ? data[result] : data[result] + (data[result + 1] - data[result]) / 2;
+			return data.length % 2 === 1 ? data[result] : data[result - 1] + (data[result] - data[result - 1]) / 2;
 		}
 		mode(args) {
 			if (args.A === "") return 0;
@@ -228,7 +228,7 @@
 			for (let i = 0; i < data.length; i++) {
 				data[i] = Scratch.Cast.toNumber(data[i]);
 				temp = data[i].toString();
-				if (chart[temp]) {
+				if (chart.hasOwnProperty(temp)) {
 					chart[temp]++;
 				} else {
 					chart[temp] = 1;
@@ -240,7 +240,7 @@
 			for (const key of results) {
 				if (temp <= chart[key]) {
 					conclusions.push(temp);
-					temp = chart[key];
+					temp = Number(key);
 				}
 			}
 			return conclusions.join(",");
