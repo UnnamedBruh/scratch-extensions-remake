@@ -154,7 +154,7 @@
 						"arguments": {
 							"A": {
 								"type": "string",
-								"defaultValue": "8,7,2,1,12"
+								"defaultValue": "8,7,2,1,12,1,4,3"
 							}
 						}
 					}
