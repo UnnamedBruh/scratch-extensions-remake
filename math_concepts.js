@@ -147,7 +147,6 @@
 						"blockType": "reporter",
 						"text": "α"
 					},
-					
 					{
 						"opcode": "",
 						"blockType": "label",
