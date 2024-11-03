@@ -4,7 +4,7 @@
 // Scratch: https://scratch.mit.edu/users/UnnamedBruhScratch
 (function(Scratch) {
 	if (!Scratch.Cast) {
-		if (confirm("This Scratch mod must support the Scratch.Cast API! Do you want the extension to be used anyway?")) {
+		if (confirm("This Scratch mod must support the Scratch.Cast API! Do you want the extension to be used anyway?") || !confirm("Are you sure you want to decline this extension? If a project is loading, and that project uses this extension, and you would decline it, the project might have trouble loading! Are you sure you want to decline this extension?")) {
 			Scratch.Cast = {};
 			Scratch.Cast.toNumber = function(e) {
 				return e === null || e === undefined ? 0 : Number(e);
