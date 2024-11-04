@@ -186,7 +186,7 @@
 						}
 					},
 					{
-						"opcode": "fromCharacterPoint",
+						"opcode": "fromCodePoint",
 						"blockType": "reporter",
 						"text": "character from point [A]",
 						"arguments": {
@@ -256,7 +256,7 @@
 			return String.fromCodePoint(Scratch.Cast.toNumber(args.A));
 		}
 		item(args) {
-			return String(args.A).split(String(args.C))[Scratch.Cast.toNumber(args.C) - 1];
+			return String(args.A).split(String(args.B))[Scratch.Cast.toNumber(args.C) - 1];
 		}
 	}
 	Scratch.extensions.register(new Extension());
