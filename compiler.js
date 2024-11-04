@@ -25,7 +25,8 @@
 			"operators_equals": function(args, codes) {
 				return (args.OPERAND1 || codes.OPERAND1) + " === " + (args.OPERAND2 || codes.OPERAND2);
 			}
-		}
+		},
+		""
 	}
 	class Extension {
 		getInfo() {
@@ -45,8 +46,17 @@
 			}
 		}
 		compile(_, util) {
-			const blocks = Object.keys(util.threads.blockContainer._blocks);
+			const blocks = Object.keys(util.thread.blockContainer._blocks);
 			const program = blocks.find(x => blocks[x].opcode === "unnamedbruhcompilerjavascript_compile");
+			const firstBlock = blocks.find(x => blocks[x].parent === program);
+			let currentBlock = firstBlock;
+			function grabArguments(block) {
+				const args = Object.keys(block.inputs);
+				return args.map(x => blocks.find(y => x.block === y).value);
+			}
+			while (currentBlock !== null) {
+				funcs.blocks[currentBlock.opcode]();
+			}
 			return false;
 		}
 	}
