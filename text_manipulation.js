@@ -215,8 +215,40 @@
 								"defaultValue": "2"
 							}
 						}
+					},
+					'---',
+					{
+						"opcode": "reverse",
+						"blockType": "reporter",
+						"text": "reverse [A]",
+						"arguments": {
+							"A": {
+								"type": "string",
+								"defaultValue": "elppa"
+							}
+						}
+					},
+					{
+						"opcode": "convert",
+						"blockType": "reporter",
+						"text": "convert [A] to [B]",
+						"arguments": {
+							"A": {
+								"type": "string",
+								"defaultValue": "Apples are delicious"
+							},
+							"B": {
+								"type": "string",
+								"menu": "CASES"
+							}
+						}
 					}
-				]
+				],
+				"menus": {
+					"CASES": {
+						"items": ["lowercase", "uppercase"]
+					}
+				}
 			}
 		}
 		slice(args) {
@@ -257,6 +289,12 @@
 		}
 		item(args) {
 			return String(args.A).split(String(args.B))[Scratch.Cast.toNumber(args.C) - 1];
+		}
+		reverse(args) {
+			return String(args.A).split("").reverse().join("");
+		}
+		convert(args) {
+			return args.B === "lowercase" ? String(args.A).toLowerCase() : String(args.A).toUpperCase();
 		}
 	}
 	Scratch.extensions.register(new Extension());
