@@ -94,7 +94,7 @@
 							},
 							"B": {
 								"type": "string",
-								"defaultValue": "app"
+								"defaultValue": "APP"
 							}
 						}
 					},
@@ -109,7 +109,7 @@
 							},
 							"B": {
 								"type": "string",
-								"defaultValue": "ple"
+								"defaultValue": "PLE"
 							}
 						}
 					},
@@ -124,7 +124,7 @@
 							},
 							"B": {
 								"type": "string",
-								"defaultValue": "ple"
+								"defaultValue": "APP"
 							}
 						}
 					},
@@ -139,7 +139,80 @@
 							},
 							"B": {
 								"type": "string",
-								"defaultValue": "ple"
+								"defaultValue": "PLE"
+							}
+						}
+					},
+					'---',
+					{
+						"opcode": "characterCode",
+						"blockType": "reporter",
+						"text": "character code at [B] from [A]",
+						"arguments": {
+							"A": {
+								"type": "string",
+								"defaultValue": "apple"
+							},
+							"B": {
+								"type": "number",
+								"defaultValue": "5"
+							}
+						}
+					},
+					{
+						"opcode": "codePoint",
+						"blockType": "reporter",
+						"text": "code point at [B] from [A]",
+						"arguments": {
+							"A": {
+								"type": "string",
+								"defaultValue": "apple"
+							},
+							"B": {
+								"type": "number",
+								"defaultValue": "5"
+							}
+						}
+					},
+					{
+						"opcode": "fromCharacterCode",
+						"blockType": "reporter",
+						"text": "character from code [A]",
+						"arguments": {
+							"A": {
+								"type": "number",
+								"defaultValue": "97"
+							}
+						}
+					},
+					{
+						"opcode": "fromCharacterPoint",
+						"blockType": "reporter",
+						"text": "character from point [A]",
+						"arguments": {
+							"A": {
+								"type": "number",
+								"defaultValue": "97"
+							}
+						}
+					},
+					'---',
+					{
+						"opcode": "item",
+						"blockType": "reporter",
+						"text": "item [C] of [A] separated by [B]",
+						"arguments": {
+							"A": {
+								"type": "string",
+								"defaultValue": "apple, banana, orange"
+							},
+							"B": {
+								"type": "string",
+								"defaultValue": ", "
+							},
+							"C": {
+								"type": "number",
+								"defaultValue": "2"
 							}
 						}
 					}
@@ -169,6 +242,21 @@
 		}
 		exactlyEndsWith(args) {
 			return String(args.A).endsWith(String(args.B));
+		}
+		characterCode(args) {
+			return String(args.A).charCodeAt(Scratch.Cast.toNumber(args.B) - 1);
+		}
+		codePoint(args) {
+			return String(args.A).codePointAt(Scratch.Cast.toNumber(args.B) - 1);
+		}
+		fromCharacterCode(args) {
+			return String.fromCharCode(Scratch.Cast.toNumber(args.A));
+		}
+		fromCodePoint(args) {
+			return String.fromCodePoint(Scratch.Cast.toNumber(args.A));
+		}
+		item(args) {
+			return String(args.A).split(String(args.C))[Scratch.Cast.toNumber(args.C) - 1];
 		}
 	}
 	Scratch.extensions.register(new Extension());
