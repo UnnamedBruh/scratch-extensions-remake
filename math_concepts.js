@@ -255,6 +255,29 @@
 								"defaultValue": "8,7,2,1,12"
 							}
 						}
+					},
+					'---',
+					{
+						"opcode": "sum",
+						"blockType": "reporter",
+						"text": "sum of [A]",
+						"arguments": {
+							"A": {
+								"type": "string",
+								"defaultValue": "8,7,2,1,12"
+							}
+						}
+					},
+					{
+						"opcode": "diff",
+						"blockType": "reporter",
+						"text": "progressive difference of [A]",
+						"arguments": {
+							"A": {
+								"type": "string",
+								"defaultValue": "8,7,2,1,12"
+							}
+						}
 					}
 				]
 			}
@@ -388,6 +411,26 @@
 			const m4 = data.reduce((acc, x) => acc + Math.pow(x - mean, 4), 0) / n;
 			const stdDev = this.standardDeviation({ A: args.A });
 			return (n * m4) / Math.pow(stdDev, 4) - 3;
+		}
+		sum(args) {
+			if (args.A.toString().trim() === "") return 0;
+			const data = args.A.toString().split(",");
+			if (data.length === 1) return Scratch.Cast.toNumber(data[0]);
+			let sum = 0;
+			for (let i = 0; i < data.length; i++) {
+				sum += Scratch.Cast.toNumber(data[i]);
+			}
+			return sum;
+		}
+		diff(args) {
+			if (args.A.toString().trim() === "") return 0;
+			const data = args.A.toString().split(",");
+			if (data.length === 1) return Scratch.Cast.toNumber(data[0]);
+			let diff = Scratch.Cast.toNumber(data[0]);
+			for (let i = 1; i < data.length; i++) {
+				diff = Math.abs(diff - Scratch.Cast.toNumber(data[i]));
+			}
+			return diff;
 		}
 	}
 	Scratch.extensions.register(new Extension());
