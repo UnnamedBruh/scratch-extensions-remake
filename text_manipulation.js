@@ -242,17 +242,51 @@
 								"menu": "CASES"
 							}
 						}
+					},
+					'---',
+					{
+						"opcode": "replace",
+						"blockType": "reporter",
+						"text": "in [A] replace [B] with [C] [D] [E]",
+						"arguments": {
+							"A": {
+								"type": "string",
+								"defaultValue": "apples are a great source of potassium"
+							},
+							"B": {
+								"type": "string",
+								"defaultValue": "apple"
+							},
+							"C": {
+								"type": "string",
+								"defaultValue": "banana"
+							},
+							"D": {
+								"type": "string",
+								"menu": "TYPES"
+							},
+							"E": {
+								"type": "string",
+								"menu": "REGEX"
+							}
+						}
 					}
 				],
 				"menus": {
 					"CASES": {
 						"items": ["lowercase", "uppercase"]
+					},
+					"TYPES": {
+						"items": [{"text": "once", "value": ""}, {"text": "every time", "value": "g"}]
+					},
+					"REGEX": {
+						"items": [{"text": "case-sensitive", "value": ""}, {"text": "case-insensitive", value: "i"}]
 					}
 				}
 			}
 		}
 		slice(args) {
-			return String(args.A).slice(Scratch.Cast.toNumber(args.B) - 1, Scratch.Cast.toNumber(args.C) - 1);
+			return String(args.A).slice(Scratch.Cast.toNumber(args.B) - 1, Scratch.Cast.toNumber(args.C));
 		}
 		repeat(args) {
 			return String(args.A).repeat(Scratch.Cast.toNumber(args.B));
@@ -295,6 +329,9 @@
 		}
 		convert(args) {
 			return args.B === "lowercase" ? String(args.A).toLowerCase() : String(args.A).toUpperCase();
+		}
+		replace(args) {
+			return String(args.A).replace(new RegExp(String(args.B).replace(/./g, "\\$&"), args.D + args.E), String(args.C));
 		}
 	}
 	Scratch.extensions.register(new Extension());
